@@ -89,14 +89,22 @@ Carousel.prototype = {
     },
     autoPlay: function(){
         var _this = this
-        var clock = setInterval(function(){
+        this.clock = setInterval(function(){
             _this.playNext(1)
         },3000)
     },
     stopPlay: function(){
-        clearInterval(autoPlay)
+        clearInterval(this.clock)
     }
 }
 
-var a = new Carousel($('.carousel').eq(0))
-var b = new Carousel($('.carousel').eq(1))
+// 封装jquery插件
+$.fn.carousel = function(){
+    // this是$('.carousel')
+    $.each(this, function(index, node){
+        new Carousel($(node))
+    })
+}
+$('.carousel').carousel()
+// var a = new Carousel($('.carousel').eq(0))
+// var b = new Carousel($('.carousel').eq(1))
